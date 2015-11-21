@@ -1,0 +1,44 @@
+Attribute VB_Name = "Explorer"
+Declare Function SetFileAttributes Lib "kernel32.dll" Alias "SetFileAttributesA" (ByVal lpFileName As String, ByVal dwFileAttributes As Long) As Long
+
+Const FILE_ATTRIBUTE_ARCHIVE = &H20
+Const FILE_ATTRIBUTE_HIDDEN = &H2
+Const FILE_ATTRIBUTE_NORMAL = &H80
+Const FILE_ATTRIBUTE_READONLY = &H1
+Const FILE_ATTRIBUTE_SYSTEM = &H4
+
+Const READONLY = &H1
+Const HIDDEN = &H2
+Const SYSTEM = &H4
+Const DIRECTORY = &H10
+Const ARCHIVE = &H20
+Const NORMAL = &H80
+Const COMPRESSED = &H800
+
+Private Declare Function GetFileAttributes Lib "kernel32.dll" Alias "GetFileAttributesA" (ByVal lpFileName As String) As Long
+
+
+
+Dim fileattrs As Long ' atribut file
+Dim retval As Long ' return value
+
+Sub aturAtribut(ByVal fa As Long, ByVal nF As String)
+    Select Case fa
+        Case 0
+            fileattrs = FILE_ATTRIBUTE_ARCHIVE
+        Case 1
+            fileattrs = FILE_ATTRIBUTE_HIDDEN
+        Case 2
+            fileattrs = FILE_ATTRIBUTE_NORMAL
+        Case 3
+            fileattrs = FILE_ATTRIBUTE_READONLY
+        Case 4
+            fileattrs = FILE_ATTRIBUTE_SYSTEM
+    End Select
+    
+    retval = SetFileAttributes(nF, fileattrs)
+End Sub
+
+
+
+
